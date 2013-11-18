@@ -1,6 +1,6 @@
 # Thundr Quartz
 
-A Quartz timer module for (Thundr)[http://3wks.github.io/thundr/]
+A Quartz scheduler module for [Thundr](http://3wks.github.io/thundr/)
 
 ## Usage
 
@@ -30,6 +30,9 @@ Trigger myJobTrigger = TriggerBuilder
 
 scheduler.scheduleJob(myJob, myJobTrigger);
 ```
+
+Since Thundr Quartz is just a thin wrapper around Quartz virtually anything you can do with Quartz standalone should
+be possible. Refer to the official [Quartz docs](http://quartz-scheduler.org/documentation) for details.
 
 ### Quartz configuration
 
