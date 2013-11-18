@@ -1,6 +1,6 @@
 # Thundr Quartz
 
-Provides easy integration of Quartz into a Thundr app
+A Quartz timer module for (Thundr)[http://3wks.github.io/thundr/]
 
 ## Usage
 
