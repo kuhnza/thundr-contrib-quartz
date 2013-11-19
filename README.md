@@ -2,6 +2,8 @@
 
 A Quartz timer module for (Thundr)[http://3wks.github.io/thundr/]
 
+[![Build Status](https://travis-ci.org/kuhnza/thundr-quartz.png)](https://travis-ci.org/kuhnza/thundr-quartz)
+
 ## Usage
 
 In your module.properties file:
