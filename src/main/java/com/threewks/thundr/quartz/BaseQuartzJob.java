@@ -18,8 +18,6 @@
 package com.threewks.thundr.quartz;
 
 import com.threewks.thundr.injection.InjectionContext;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 public abstract class BaseQuartzJob implements QuartzJob {
 	protected InjectionContext injectionContext;

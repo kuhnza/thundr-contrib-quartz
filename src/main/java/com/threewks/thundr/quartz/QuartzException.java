@@ -17,10 +17,11 @@
  */
 package com.threewks.thundr.quartz;
 
-
 import com.threewks.thundr.exception.BaseException;
 
 public class QuartzException extends BaseException {
+	private static final long serialVersionUID = 1L;
+
 	public QuartzException(Throwable cause, String format, Object... formatArgs) {
 		super(cause, format, formatArgs);
 	}

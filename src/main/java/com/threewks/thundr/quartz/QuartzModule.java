@@ -17,31 +17,50 @@
  */
 package com.threewks.thundr.quartz;
 
-import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 
 import com.threewks.thundr.configuration.ConfigurationException;
-import com.threewks.thundr.injection.BaseInjectionConfiguration;
+import com.threewks.thundr.injection.InjectionContext;
+import com.threewks.thundr.injection.Module;
 import com.threewks.thundr.injection.UpdatableInjectionContext;
 import com.threewks.thundr.logger.Logger;
+import com.threewks.thundr.module.DependencyRegistry;
 
-public class QuartzInjectionConfiguration extends BaseInjectionConfiguration {
+public class QuartzModule implements Module {
+	@Override
+	public void requires(DependencyRegistry dependencyRegistry) {
+	}
 
 	@Override
 	public void configure(UpdatableInjectionContext injectionContext) {
+	}
+
+	@Override
+	public void initialise(UpdatableInjectionContext injectionContext) {
+
+	}
+
+	@Override
+	public void start(UpdatableInjectionContext injectionContext) {
 		try {
-			// Note: requires scheduler thread to be configured to be a daemon
-			// in order to shut down cleanly (see org.quartz.scheduler.makeSchedulerThreadDaemon docs).
-			// One day we should have access to the Servlet destroy event in which we can explicitly call stop().
 			QuartzScheduler scheduler = new QuartzScheduler(StdSchedulerFactory.getDefaultScheduler());
 			scheduler.setJobFactory(new QuartzJobFactory(injectionContext));
 			scheduler.start();
+			Logger.info("Quartz scheduler started");
 
 			injectionContext.inject(scheduler).as(QuartzScheduler.class);
-			Logger.info("Quartz scheduler started");
 		} catch (SchedulerException e) {
 			throw new ConfigurationException(e, "Failed to start Quartz scheduler.");
 		}
+	}
+
+	@Override
+	public void stop(InjectionContext injectionContext) {
+		QuartzScheduler quartzScheduler = injectionContext.get(QuartzScheduler.class);
+		boolean waitForJobs = Boolean.valueOf(injectionContext.get(String.class, "thundrQuartzWaitForJobsOnShutdown"));
+		Logger.info("Quartz scheduler shutting down...");
+		quartzScheduler.shutdown(waitForJobs);
+		Logger.info("Quartz scheduler shutdown");
 	}
 }
