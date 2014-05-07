@@ -2,16 +2,21 @@
 
 A Quartz scheduler module for [Thundr](http://3wks.github.io/thundr/)
 
-[![Build Status](https://travis-ci.org/kuhnza/thundr-quartz.png)](https://travis-ci.org/kuhnza/thundr-quartz)
+[![Build Status](https://travis-ci.org/kuhnza/thundr-contrib-quartz.png)](https://travis-ci.org/kuhnza/thundr-contrib-quartz)
 
 ## Usage
 
-In your module.properties file:
-```ini
-com.threewks.thundr.quartz=
+In your `ApplicationModule`:
+```java
+@Override
+public void requires(DependencyRegistry dependencyRegistry) {
+    super.requires(dependencyRegistry);
+
+    dependencyRegistry.addDependency(QuartzModule.class);
+}
 ```
 
-When included in your module.properties file thundr-quartz injects a QuartzScheduler into the injection context. Hence
+Once registered as a dependency thundr-contrib-quartz injects a QuartzScheduler into the injection context. Hence
 you can use it as follows:
 
 ```java
@@ -36,18 +41,11 @@ scheduler.scheduleJob(myJob, myJobTrigger);
 Since Thundr Quartz is just a thin wrapper around Quartz virtually anything you can do with Quartz standalone should
 be possible. Refer to the official [Quartz docs](http://quartz-scheduler.org/documentation) for details.
 
+### A note on previous versions
+
+Previous versions of thundr-contrib-quartz required that you run the Quartz scheduler as a daemon thread to ensure a clean shutdown. This is no longer necessary as Thundr 1.x now provides shutdown hooks that allow the module to manage clean up properly.
+
 ### Quartz configuration
 
-To ensure a clean shutdown you should also create a quartz.properties file in your src/resources folder with the
-following configurations as a minimum. Note that all other
-[Quartz configuration](http://quartz-scheduler.org/documentation/quartz-2.2.x/configuration/) values are also valid.
-
-```ini
-org.quartz.scheduler.makeSchedulerThreadDaemon=true
-org.quartz.threadPool.makeThreadsDaemons=true
-```
-
-Thundr lacks a servlet shutdown even hook at present which means that we cannot call `scheduler.shutdown()` without
-which the JVM will hang waiting for all threads to terminate. Setting the thread pool to use daemon threads alleviates
-this as the JVM will not wait for them to terminate.
+Should you need to provide further configurations options to Quartz you should also create a quartz.properties file in your src/resources folder. All configuration values specified [here](http://quartz-scheduler.org/documentation/quartz-2.2.x/configuration/) are valid.
 
