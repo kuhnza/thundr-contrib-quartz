@@ -7,13 +7,13 @@
 		<version>3</version>
 	</parent>
 
-	<artifactId>thundr-quartz</artifactId>
+	<artifactId>thundr-contrib-quartz</artifactId>
 	<packaging>jar</packaging>
 	<version>0.0.2-SNAPSHOT</version>
 
-	<name>thundr-quartz</name>
-	<url>http://github.com/kuhnza/thundr-quartz/</url>
-	<description>Skeleton thundr module</description>
+	<name>thundr-contrib-quartz</name>
+	<url>http://github.com/kuhnza/thundr-contrib-quartz/</url>
+	<description>A Quartz scheduler module for Thundr</description>
 
 	<properties>
 		<username>kuhnza</username>
