@@ -47,5 +47,5 @@ Previous versions of thundr-contrib-quartz required that you run the Quartz sche
 
 ### Quartz configuration
 
-Should you need to provide further configurations options to Quartz you should also create a quartz.properties file in your src/resources folder. All configuration values specified [here](http://quartz-scheduler.org/documentation/quartz-2.2.x/configuration/) are valid.
+Should you need to provide further configurations options to Quartz you should also create a quartz.properties file in your src/resources folder. All configuration values specified in the  [Quartz configuration docs](http://quartz-scheduler.org/documentation/quartz-2.2.x/configuration/) are valid.
 
